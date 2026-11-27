@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Paleta de PeliMatch (según el diseño) -->
+    <color name="fondo">#0D0E12</color>
+    <color name="superficie">#181A20</color>
+    <color name="primario">#E50914</color>
+    <color name="primario_claro">#FF2E4C</color>
+    <color name="acento">#F5C518</color>
+    <color name="match">#2FD07A</color>
+
+    <!-- Colores de apoyo -->
+    <color name="borde">#2A2D35</color>
+    <color name="texto_secundario">#9A9DA6</color>
+    <color name="genero_seleccionado">#2A0E12</color>
 </resources>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Avatar de un participante de la sala (una fila del RecyclerView) -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/textInicial"
+    android:layout_width="40dp"
+    android:layout_height="40dp"
+    android:layout_marginEnd="10dp"
+    android:background="@drawable/fondo_avatar"
+    android:gravity="center"
+    android:text="A"
+    android:textColor="@color/white"
+    android:textSize="16sp"
+    android:textStyle="bold" />

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- fondo de cada género: cambia según esté marcado o no -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- género marcado: borde rojo y fondo rojo oscuro -->
+    <item android:state_checked="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/genero_seleccionado" />
+            <stroke android:width="2dp" android:color="@color/primario" />
+            <corners android:radius="14dp" />
+        </shape>
+    </item>
+
+    <!-- Género sin marcar: fondo superficie y borde gris -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/superficie" />
+            <stroke android:width="1dp" android:color="@color/borde" />
+            <corners android:radius="14dp" />
+        </shape>
+    </item>
+
+</selector>

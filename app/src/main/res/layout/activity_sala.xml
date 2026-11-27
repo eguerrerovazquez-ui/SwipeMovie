@@ -1,10 +1,585 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<!-- esta es la pantalla de la sala donde:
+- los participantes votan sus generos favoritos-->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SalaActivity">
+    android:background="@color/fondo"
+    android:padding="20dp">
+
+    <!-- cabecera -->
+    <LinearLayout
+        android:id="@+id/cabecera"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- botón para volver hacia atras -->
+        <ImageButton
+            android:id="@+id/botonAtras"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/fondo_tarjeta"
+            android:src="@drawable/ic_atras"
+            android:contentDescription="Volver atrás" />
+
+        <!-- aquí mostramos el código de la sala -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CÓDIGO DE SALA"
+                android:textColor="@color/texto_secundario"
+                android:textSize="11sp"
+                android:letterSpacing="0.15" />
+
+            <TextView
+                android:id="@+id/textCodigoSala"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="482 913"
+                android:textColor="@color/white"
+                android:textSize="32sp"
+                android:letterSpacing="0.1"
+                android:fontFamily="sans-serif-condensed"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <!-- este boton lo usamos para compartir el código -->
+        <ImageButton
+            android:id="@+id/botonCompartir"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/fondo_tarjeta"
+            android:src="@drawable/ic_compartir"
+            android:contentDescription="Compartir código de la sala" />
+
+    </LinearLayout>
+
+    <!-- scrollview nos permite ver todo en móviles pequeños sin tapar el boton-->
+    <ScrollView
+        android:id="@+id/scrollContenido"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="16dp"
+        android:scrollbars="none"
+        app:layout_constraintTop_toBottomOf="@id/cabecera"
+        app:layout_constraintBottom_toTopOf="@id/botonEmpezar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- tarjeta con las personas de la sala -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/fondo_tarjeta"
+                android:padding="14dp">
+
+                <!-- título y número de personas -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="En la sala"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textNumeroPersonas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="4 personas"
+                        android:textColor="@color/texto_secundario"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+                <!-- lista de participantes + botón invitar -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <!-- lista horizontal de participantes -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerParticipantes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/item_participante"
+                        tools:itemCount="4" />
+
+                    <!-- botón para invitar a más gente -->
+                    <TextView
+                        android:id="@+id/botonInvitar"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/fondo_avatar_invitar"
+                        android:gravity="center"
+                        android:text="+"
+                        android:textColor="@color/texto_secundario"
+                        android:textSize="18sp"
+                        android:clickable="true"
+                        android:focusable="true" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- título de la votación -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="¿QUÉ OS APETECE VER?"
+                    android:textColor="@color/white"
+                    android:textSize="28sp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textTiempo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0:18"
+                    android:textColor="@color/acento"
+                    android:textSize="26sp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <!-- barra con el tiempo que queda para votar -->
+            <ProgressBar
+                android:id="@+id/barraTiempo"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="6dp"
+                android:layout_marginTop="8dp"
+                android:max="30"
+                android:progress="18"
+                android:progressTint="@color/acento"
+                android:progressBackgroundTint="@color/borde" />
+
+            <!-- textview donde explicamos la votación
+             el usuario puede elegir 3 géneros-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Elige hasta 3 géneros. Los más votados decidirán las recomendaciones."
+                android:textColor="@color/texto_secundario"
+                android:textSize="13sp" />
+
+            <!-- tabla con los géneros en dos columnas -->
+            <TableLayout
+                android:id="@+id/tablaGeneros"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:stretchColumns="*">
+
+                <!-- primera fila donde tenemos acción y comedia -->
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp">
+
+                    <!-- acción -->
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="6dp">
+
+                        <CheckBox
+                            android:id="@+id/checkAccion"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:button="@null"
+                            android:background="@drawable/fondo_genero"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="40dp"
+                            android:text="Acción"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textVotosAccion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:layout_gravity="end|center_vertical"
+                            android:layout_marginEnd="14dp"
+                            android:minWidth="20dp"
+                            android:paddingStart="6dp"
+                            android:paddingEnd="6dp"
+                            android:background="@drawable/fondo_contador"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="gone"
+                            tools:visibility="visible"
+                            tools:text="3" />
+
+                    </FrameLayout>
+
+                    <!-- comedia -->
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="6dp">
+
+                        <CheckBox
+                            android:id="@+id/checkComedia"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:button="@null"
+                            android:background="@drawable/fondo_genero"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="40dp"
+                            android:text="Comedia"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textVotosComedia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:layout_gravity="end|center_vertical"
+                            android:layout_marginEnd="14dp"
+                            android:minWidth="20dp"
+                            android:paddingStart="6dp"
+                            android:paddingEnd="6dp"
+                            android:background="@drawable/fondo_contador"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="gone"
+                            tools:visibility="visible"
+                            tools:text="2" />
+
+                    </FrameLayout>
+
+                </TableRow>
+
+                <!-- segunda fila donde tenemos terror y ciencia ficción -->
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp">
+
+                    <!-- terror -->
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="6dp">
+
+                        <CheckBox
+                            android:id="@+id/checkTerror"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:button="@null"
+                            android:background="@drawable/fondo_genero"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="40dp"
+                            android:text="Terror"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textVotosTerror"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:layout_gravity="end|center_vertical"
+                            android:layout_marginEnd="14dp"
+                            android:minWidth="20dp"
+                            android:paddingStart="6dp"
+                            android:paddingEnd="6dp"
+                            android:background="@drawable/fondo_contador"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+
+                    </FrameLayout>
+
+                    <!-- ciencia ficción -->
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="6dp">
+
+                        <CheckBox
+                            android:id="@+id/checkCienciaFiccion"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:button="@null"
+                            android:background="@drawable/fondo_genero"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="40dp"
+                            android:text="Ciencia ficción"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textVotosCienciaFiccion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:layout_gravity="end|center_vertical"
+                            android:layout_marginEnd="14dp"
+                            android:minWidth="20dp"
+                            android:paddingStart="6dp"
+                            android:paddingEnd="6dp"
+                            android:background="@drawable/fondo_contador"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="gone"
+                            tools:visibility="visible"
+                            tools:text="1" />
+
+                    </FrameLayout>
+
+                </TableRow>
+
+                <!-- tercera fila donde tenemos drama y animación -->
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp">
+
+                    <!-- drama -->
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="6dp">
+
+                        <CheckBox
+                            android:id="@+id/checkDrama"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:button="@null"
+                            android:background="@drawable/fondo_genero"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="40dp"
+                            android:text="Drama"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textVotosDrama"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:layout_gravity="end|center_vertical"
+                            android:layout_marginEnd="14dp"
+                            android:minWidth="20dp"
+                            android:paddingStart="6dp"
+                            android:paddingEnd="6dp"
+                            android:background="@drawable/fondo_contador"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+
+                    </FrameLayout>
+
+                    <!-- animación -->
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="6dp">
+
+                        <CheckBox
+                            android:id="@+id/checkAnimacion"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:button="@null"
+                            android:background="@drawable/fondo_genero"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="40dp"
+                            android:text="Animación"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textVotosAnimacion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:layout_gravity="end|center_vertical"
+                            android:layout_marginEnd="14dp"
+                            android:minWidth="20dp"
+                            android:paddingStart="6dp"
+                            android:paddingEnd="6dp"
+                            android:background="@drawable/fondo_contador"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+
+                    </FrameLayout>
+
+                </TableRow>
+
+                <!-- cuarta fila donde tenemos los géneros de romance y thriller -->
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp">
+
+                    <!-- romance -->
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="6dp">
+
+                        <CheckBox
+                            android:id="@+id/checkRomance"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:button="@null"
+                            android:background="@drawable/fondo_genero"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="40dp"
+                            android:text="Romance"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textVotosRomance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:layout_gravity="end|center_vertical"
+                            android:layout_marginEnd="14dp"
+                            android:minWidth="20dp"
+                            android:paddingStart="6dp"
+                            android:paddingEnd="6dp"
+                            android:background="@drawable/fondo_contador"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+
+                    </FrameLayout>
+
+                    <!-- thriller -->
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="6dp">
+
+                        <CheckBox
+                            android:id="@+id/checkThriller"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:button="@null"
+                            android:background="@drawable/fondo_genero"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="40dp"
+                            android:text="Thriller"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textVotosThriller"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:layout_gravity="end|center_vertical"
+                            android:layout_marginEnd="14dp"
+                            android:minWidth="20dp"
+                            android:paddingStart="6dp"
+                            android:paddingEnd="6dp"
+                            android:background="@drawable/fondo_contador"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+
+                    </FrameLayout>
+
+                </TableRow>
+
+            </TableLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!-- botón que nos sirve para terminar la botación y pasar al swipe -->
+    <Button
+        android:id="@+id/botonEmpezar"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:text="¡Listo! Empezar a deslizar"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:backgroundTint="@color/primario"
+        app:cornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
