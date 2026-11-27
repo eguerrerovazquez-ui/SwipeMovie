@@ -2,4 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="acento">#F5C518</color>
+    <color name="fondo">#0D0E12</color>
+    <color name="superficie">#181A20</color>
+    <color name="primario">#E50914</color>
+    <color name="primario_claro">#FF2E4C</color>
+    <color name="me_gusta">#2FD07A</color>
+    <color name="superficie_claro">#989EAD</color>
 </resources>

@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">SwipeMovie</string>
+    <string name="nombre_usuario">Usuario</string>
+    <string name="invitado">Invitado • Sala 424 341</string>
+    <string name="me_gusta">Me gusta</string>
+    <string name="descartadas">Descartadas</string>
+    <string name="matches">Matches</string>
+    <string name="generos_votados">Tus géneros votados</string>
+    <string name="accion">Acción</string>
+    <string name="comedia">Comedia</string>
+    <string name="ciencia_ficcion">Ciencia ficción</string>
 </resources>
